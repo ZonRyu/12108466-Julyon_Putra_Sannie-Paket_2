@@ -45,30 +45,36 @@
                         <table class="table" id="myTable">
                             <thead>
                               <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Actions</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                              </tr>
+                                @php
+                                    $no = 1;
+                                @endphp
+
+                                @foreach ($data as $dt)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $dt->foto_produk }}</td>
+                                        <td>{{ $dt->nama_produk }}</td>
+                                        <td>{{ $dt->stok_produk }}</td>
+                                        <td>{{ $dt->harga_produk }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ Route('produk-edit', $dt->id) }}" class="btn btn-primary me-1">Edit</a>
+                                            <form action="{{ Route('func-produk-delete', $dt->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                           </table>
                     </div>
@@ -81,35 +87,11 @@
 @endsection
 
 @section('script')
-    <!-- BEGIN: Vendor JS-->
-    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
-    <!-- BEGIN Vendor JS-->
 
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="../../../app-assets/vendors/js/extensions/moment.min.js"></script>
-    <!-- END: Page Vendor JS-->
-
-    <!-- BEGIN: Theme JS-->
-    <script src="../../../app-assets/js/core/app-menu.js"></script>
-    <script src="../../../app-assets/js/core/app.js"></script>
-    <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
     <script src="../../../app-assets/js/scripts/pages/app-invoice-list.js"></script>
     <!-- END: Page JS-->
-
-    <script>
-        $(window).on('load', function() {
-            if (feather) {
-                feather.replace({
-                    width: 14,
-                    height: 14
-                });
-            }
-        })
-
-
-    </script>
 
     <script>
         new DataTable('#myTable');

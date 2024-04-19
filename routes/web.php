@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,10 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::view('/produk-list', 'produk-list');;
+Route::get('/produk-list', [ProdukController::class, 'index'])->name('produk-list');
+
+Route::view('/produk-add', 'produk-add');
+Route::get('/produk-edit/{id}', [ProdukController::class, 'index_edit'])->name('produk-edit');
+Route::post('/func-produk-add', [ProdukController::class, 'create'])->name('func-produk-add');
+Route::patch('/func-produk-edit/{id}', [ProdukController::class, 'update'])->name('func-produk-edit');
+Route::delete('/func-produk-delete/{id}', [ProdukController::class, 'destroy'])->name('func-produk-delete');
