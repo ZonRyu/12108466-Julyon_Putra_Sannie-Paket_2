@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Exports\ProdukExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -22,6 +24,11 @@ class ProdukController extends Controller
     {
         $data = Produk::where('id', $id)->first();
         return view('produk.produk-edit', compact('data'));
+    }
+
+    public function index_add()
+    {
+        return view('produk.produk-add');
     }
 
     /**
@@ -54,9 +61,9 @@ class ProdukController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function export_excel()
     {
-        //
+        return Excel::download(new ProdukExport, 'siswa.xlsx');
     }
 
     /**

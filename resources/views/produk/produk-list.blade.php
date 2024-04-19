@@ -40,6 +40,10 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
+                <div class="container">
+                    <a href="{{ Route('export-excel') }}" class="btn btn-primary my-1">Export</a>
+                    <a href="{{ Route('produk-add') }}" class="btn btn-primary my-1 float-end">Tambah Produk</a>
+                </div>
                 <section class="invoice-list-wrapper">
                     <div class="card">
                         <table class="table" id="myTable">
@@ -61,10 +65,10 @@
                                 @foreach ($data as $dt)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $dt->foto_produk }}</td>
+                                        <td><img src="{{ asset('foto_produk/'.$dt->foto_produk) }}" alt="" style="max-width: 150px"></td>
                                         <td>{{ $dt->nama_produk }}</td>
                                         <td>{{ $dt->stok_produk }}</td>
-                                        <td>{{ $dt->harga_produk }}</td>
+                                        <td>Rp {{ number_format($dt->harga_produk, 2, ',','.') }}</td>
                                         <td class="d-flex">
                                             <a href="{{ Route('produk-edit', $dt->id) }}" class="btn btn-primary me-1">Edit</a>
                                             <form action="{{ Route('func-produk-delete', $dt->id) }}" method="post">

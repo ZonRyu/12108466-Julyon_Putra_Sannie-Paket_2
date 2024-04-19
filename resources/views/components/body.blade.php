@@ -27,7 +27,6 @@
     @include('components.footer')
 
     <!-- BEGIN: Data Table -->
-    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <!-- END: Data Table -->
