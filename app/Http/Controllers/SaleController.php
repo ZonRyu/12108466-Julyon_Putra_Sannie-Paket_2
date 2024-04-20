@@ -38,9 +38,7 @@ class SaleController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Function Menambahkan ke keranjang
     public function create(Request $request)
     {
         $id = $request->produk_id;
@@ -68,9 +66,7 @@ class SaleController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Function Mengupdate keranjang
     public function store(Request $request, $id)
     {
         $max_stok = Sale::where('id', $id)->first();
@@ -125,9 +121,7 @@ class SaleController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Function menghapus produk di keranjang
     public function destroy($id)
     {
         //get post by ID

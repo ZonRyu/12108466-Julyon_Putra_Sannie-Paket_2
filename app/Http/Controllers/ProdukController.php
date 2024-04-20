@@ -11,29 +11,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Halaman Produk list
     public function index()
     {
         $data = Produk::all();
         return view('produk.produk-list', compact('data'));
     }
 
+    // Halaman Produk edit
     public function index_edit($id)
     {
         $data = Produk::where('id', $id)->first();
         return view('produk.produk-edit', compact('data'));
     }
 
+    // Halaman Produk add
     public function index_add()
     {
         return view('produk.produk-add');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Membuat Produk
     public function create(Request $request)
     {
         //dd($request);
@@ -63,9 +61,7 @@ class ProdukController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Export data ke excel
     public function export_excel()
     {
         return Excel::download(new ProdukExport, 'siswa.xlsx');
@@ -87,9 +83,7 @@ class ProdukController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Mengedit Produk
     public function update(Request $request, Produk $produk, $id)
     {
         $request->validate([
@@ -126,9 +120,7 @@ class ProdukController extends Controller
         return redirect()->route('produk-list');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Menghapus Produk
     public function destroy(Produk $produk, $id)
     {
         $data = Produk::find($id);

@@ -12,9 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ReceiptController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Halam Receipt list
     public function index()
     {
         $data = Receipt::all();
@@ -22,6 +20,7 @@ class ReceiptController extends Controller
         return view('receipt.receipt-list', compact('data'));
     }
 
+    // Halam Receipt detail
     public function receipt_detail($id)
     {
         $data = Receipt::where('id', $id)->first();
@@ -31,9 +30,7 @@ class ReceiptController extends Controller
         return view('receipt.receipt-detail', compact('data', 'produk_data', 'total_harga_keseluruhan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Membuat receipt
     public function create(Request $request, $id)
     {
         $data = [
@@ -76,6 +73,8 @@ class ReceiptController extends Controller
         return redirect()->route('receipt-detail', $id);
     }
 
+
+    // Cetak Receipt pdf
     public function cetak_receipt($id)
     {
     	$data = Receipt::where('id', $id)->first();
@@ -120,9 +119,7 @@ class ReceiptController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Menghapus Receipt
     public function destroy($id)
     {
         //get post by ID
