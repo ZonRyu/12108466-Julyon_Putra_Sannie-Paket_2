@@ -21,10 +21,10 @@ use Mockery\ReceivedMethodCalls;
 
 Route::group(['middleware' => 'isGuest'], function() {
     Route::redirect('/', '/login');
-    Route::post('/func-login', [UserController::class, 'func_login'])->name('func-login');
-
-    Route::view('/login', 'login')->name('login')->middleware('isGuest');
+    
 });
+Route::post('/func-login', [UserController::class, 'func_login'])->name('func-login');
+Route::view('/login', 'login')->name('login')->middleware('isGuest');
 
 Route::group(['middleware' => 'isLogin'], function() {
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
@@ -47,16 +47,10 @@ Route::group(['middleware' => 'isLogin'], function() {
     Route::delete('/func-receipt-delete/{id}', [ReceiptController::class, 'destroy'])->name('func-receipt-delete');
     Route::get('/func-receipt-pdf/{id}', [ReceiptController::class, 'cetak_receipt'])->name('func-receipt-pdf');
 
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::post('/func-logout', [UserController::class, 'logout'])->name('func-logout');
 
     Route::get('/export_excel', [ProdukController::class, 'export_excel'])->name('export-excel');
-
-
-
-    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-
-
-
 });
 
 

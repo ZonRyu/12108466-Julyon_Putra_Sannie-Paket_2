@@ -36,6 +36,6 @@ class UserController extends Controller
         Session::flush();
         Auth::logout();
         Alert::toast('Berhasil Logout!', 'success');
-        return redirect('login');
+        return redirect()->route('login');
     }
 }

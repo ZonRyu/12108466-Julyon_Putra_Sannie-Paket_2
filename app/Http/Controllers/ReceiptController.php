@@ -47,7 +47,7 @@ class ReceiptController extends Controller
         Receipt::where('id', $id)->update([
             'nama_pembeli' => $nama_pembeli,
             'total_harga' => $total_harga,
-            'status' => 'Selesai'
+            'status' => 'Done'
         ]);
 
         Sale::where('receipt_id', $id)->update([

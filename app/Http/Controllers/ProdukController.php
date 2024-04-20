@@ -44,18 +44,23 @@ class ProdukController extends Controller
             'foto_produk' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $foto = $request->foto_produk->getClientOriginalName();
-        $request->foto_produk->move(public_path('foto_produk'), $foto);
-
-        $data = Produk::create([
-            'nama_produk' => $request->nama_produk,
-            'harga_produk' => $request->harga_produk,
-            'stok_produk' => $request->stok_produk,
-            'foto_produk' => $foto,
-        ]);
-
-        Alert::success('Success', 'Data berhasil ditambahkan');
-        return redirect()->route('produk-list');
+        if (Produk::where('nama_produk', $request->nama_produk)->exists()){
+            Alert::error('Error', 'Produk sudah ada');
+            return redirect()->route('produk-list');
+        }else{
+            $foto = $request->foto_produk->getClientOriginalName();
+            $request->foto_produk->move(public_path('foto_produk'), $foto);
+    
+            $data = Produk::create([
+                'nama_produk' => $request->nama_produk,
+                'harga_produk' => $request->harga_produk,
+                'stok_produk' => $request->stok_produk,
+                'foto_produk' => $foto,
+            ]);
+    
+            Alert::success('Success', 'Data berhasil ditambahkan');
+            return redirect()->route('produk-list');
+        }
     }
 
     /**
@@ -99,22 +104,22 @@ class ProdukController extends Controller
             'stok_produk' => $request->stok_produk,
         ]);
 
-        if($request->file != ''){
+        if($request->foto_produk != ''){
             $path = public_path().'/foto_produk/';
 
             //code for remove old file
-            if($data->file != ''  && $data->file != null){
-                 $file_old = $path.$data->file;
+            if($data->foto_produk != ''  && $data->foto_produk != null){
+                 $file_old = $path.$data->foto_produk;
                  unlink($file_old);
             }
 
             //upload new file
-            $file = $request->file;
+            $file = $request->foto_produk;
             $filename = $file->getClientOriginalName();
             $file->move($path, $filename);
 
             //for update in table
-            $data->update(['file' => $filename]);
+            $data->update(['foto_produk' => $filename]);
        }
 
         Alert::success('Success', 'Data berhasil diubah');

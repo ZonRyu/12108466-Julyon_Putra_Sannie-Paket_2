@@ -34,15 +34,15 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a class="d-flex align-items-center" href="dashboard"><i data-feather="home"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Dashboards</span></a>
+            <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ Route('dashboard')}}"><i data-feather="home"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Dashboards</span></a>
             </li>
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
             </li>
-            <li class="{{ Request::is('produk-list') ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="produk-list"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Produk</span></a>
+            <li class="{{ Request::is('produk-list') ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="{{ Route('produk-list') }}"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Produk</span></a>
             </li>
-            <li class="{{ Request::is('checkout') ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="checkout"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Email">Checkout</span></a>
+            <li class="{{ Request::is('checkout') ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="{{ Route('checkout') }}"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Email">Checkout</span></a>
             </li>
-            <li class="{{ Request::is('receipt-list') ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="receipt-list"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Email">Receipt</span></a>
+            <li class="{{ Request::is('receipt-list') ? 'active' : '' }} nav-item"><a class="d-flex align-items-center" href="{{ Route('receipt-list') }}"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Email">Receipt</span></a>
             </li>
         </ul>
     </div>

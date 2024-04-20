@@ -59,7 +59,7 @@
 
                                 <div class="mb-3 col-lg-6">
                                     <label for="foto_produk" class="form-label">Foto Produk</label>
-                                    <input class="form-control" type="file" id="foto_produk" name="foto_produk" value="{{ $data->foto_produk }}" />
+                                    <input class="form-control" type="file" id="foto_produk" name="foto_produk" value="{{ asset('foto-produk/'.$data->foto_produk) }}" />
                                 </div>
 
                                 <div class="col">

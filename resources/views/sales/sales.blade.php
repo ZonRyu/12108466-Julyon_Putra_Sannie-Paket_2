@@ -87,6 +87,14 @@
                     </div>
                     <!-- Wizard ends -->
 
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger mt-1">
+                                <span class="my-1 fs-4 p-1">{{ $error }}</span>
+                            </div>
+                        @endforeach
+                    @endif
+
                     <div class="bs-stepper-content">
                         <!-- Checkout Place order starts -->
                         <div id="step-cart" class="content" role="tabpanel" aria-labelledby="step-cart-trigger">

@@ -69,13 +69,17 @@
                                         <td>{{ $dt->nama_produk }}</td>
                                         <td>{{ $dt->stok_produk }}</td>
                                         <td>Rp {{ number_format($dt->harga_produk, 2, ',','.') }}</td>
-                                        <td class="d-flex">
-                                            <a href="{{ Route('produk-edit', $dt->id) }}" class="btn btn-primary me-1">Edit</a>
-                                            <form action="{{ Route('func-produk-delete', $dt->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger" type="submit">Delete</button>
-                                            </form>
+                                        <td>
+                                            <div class="mb-1">
+                                                <a href="{{ Route('produk-edit', $dt->id) }}" class="btn btn-primary me-1">Edit</a>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <form action="{{ Route('func-produk-delete', $dt->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

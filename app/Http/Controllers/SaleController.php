@@ -42,20 +42,28 @@ class SaleController extends Controller
     public function create(Request $request)
     {
         $id = $request->produk_id;
+        $stock = Produk::select('stok_produk')->where('id', $id)->first();
         $harga = Produk::select('id', 'harga_produk')->where('id','=', $id)->first();
 
-
-        $validateData = Sale::create([
-            'receipt_id' => $request->receipt_id,
-            'produk_id' => $id,
-            'total_harga' => $harga->harga_produk
-        ]);
-
-
-
-        // User::create($validateData);
-        Alert::toast('Berhasil menambahkan barang!', 'success');
-        return redirect()->route('checkout');
+        if (Sale::where('status', 'Undone')->where('produk_id', $id)->exists()){
+            Alert::error('Error', 'Sudah dimasukan ke keranjang');
+            return redirect()->route('checkout');
+        }else{
+            if ($stock->stok_produk < 1){
+                Alert::error('Error', 'Stok Habis');
+                return redirect()->route('checkout');
+            }else{
+                $validateData = Sale::create([
+                    'receipt_id' => $request->receipt_id,
+                    'produk_id' => $id,
+                    'total_harga' => $harga->harga_produk
+                ]);
+        
+                // User::create($validateData);
+                Alert::toast('Berhasil menambahkan barang!', 'success');
+                return redirect()->route('checkout');
+            }
+        }
     }
 
     /**
@@ -63,13 +71,21 @@ class SaleController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $max_stok = Sale::where('id', $id)->first();
+        // dd($max_stok->produk->stok_produk, $request->quantity_produk);
+
         $data = [
-            'quantity_produk' => 'required',
+            'quantity_produk' => 'required|numeric|max:'.$max_stok->produk->stok_produk,
+        ];
+
+        $rules = [
+            'quantity_produk.max' => 'Stok yang tersedia hanya '.$max_stok->produk->stok_produk
         ];
         // dd($request->all());
-        $validate = $request->validate($data);
+        $validate = $request->validate($data, $rules);
         $quantity = $request->quantity_produk;
-        $harga = Produk::select('id', 'harga_produk')->where('id','=', $id)->first();
+        $harga = Produk::select('id', 'harga_produk')->where('id','=', $max_stok->produk_id)->first();
+        // dd($harga, $id);
         $total_harga = $harga->harga_produk *  $quantity;
         // dd($total_harga);
 
