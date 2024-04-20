@@ -45,7 +45,7 @@
                     <a href="{{ Route('produk-add') }}" class="btn btn-primary my-1 float-end">Tambah Produk</a>
                 </div>
                 <section class="invoice-list-wrapper">
-                    <div class="card">
+                    <div class="card p-1">
                         <table class="table" id="myTable">
                             <thead>
                               <tr>

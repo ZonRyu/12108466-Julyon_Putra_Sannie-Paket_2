@@ -73,7 +73,7 @@ class ReceiptController extends Controller
         //
 
         Alert::toast('Berhasil menambahkan barang!', 'success');
-        return redirect()->route('receipt-list');
+        return redirect()->route('receipt-detail', $id);
     }
 
     public function cetak_receipt($id)

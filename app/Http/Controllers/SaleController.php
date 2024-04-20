@@ -10,21 +10,23 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class SaleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Function Menampilkan Page Checkout atau keranjang
     public function index()
     {
         $produk = Produk::all();
+
+        // Mengambil data barang yang sedang diproses atau belum di beli, baru dimasukan ke keranjang
         $checkout = Sale::where('status', 'Undone')->get();
+        // Menjumlahkan semua harga produk yang ada di keranjang
         $total_harga = Sale::where('status', 'Undone')->sum('total_harga');
+        // Mengambil id untuk relasi dari detail penjualan ke penjualan
         $receipt = Receipt::where('status', 'Undone')->first();
 
         if($receipt){
             return view('sales.sales', compact('produk', 'checkout', 'total_harga', 'receipt'));
         }
         else{
-
+            // Membuat data kosong sebagai Relasi dari detail ke penjualan
             Receipt::create([
                 'nama_pembeli' => null,
                 'total_harga' => null,

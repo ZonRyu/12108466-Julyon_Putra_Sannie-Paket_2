@@ -10,7 +10,6 @@
 
     <!-- Data Tables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
-    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
     @yield('css')
 
@@ -26,9 +25,13 @@
 
     @include('components.footer')
 
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+
     <!-- BEGIN: Data Table -->
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
     <!-- END: Data Table -->
 
     <!-- BEGIN: Vendor JS-->

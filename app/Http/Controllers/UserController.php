@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
+    // Function Menampilkan Dashboard
     public function dashboard()
     {
         return view('dashboard');
     }
 
+    // Function Login
     public function func_login(Request $request)
     {
         $login = [
@@ -31,6 +33,7 @@ class UserController extends Controller
         }
     }
 
+    // Function Logout
     public function logout(Request $request)
     {
         Session::flush();
