@@ -41,7 +41,7 @@
             </div>
             <div class="content-body">
                 <div class="container">
-                    <a href="{{ Route('export-excel') }}" class="btn btn-primary my-1">Export</a>
+                    <a href="{{ Route('export-excel') }}" id="exportPDF" class="btn btn-primary my-1">Export</a>
                     <a href="{{ Route('produk-add') }}" class="btn btn-primary my-1 float-end">Tambah Produk</a>
                 </div>
                 <section class="invoice-list-wrapper">
@@ -62,7 +62,7 @@
                                     $no = 1;
                                 @endphp
 
-                                @foreach ($produk as $dt)
+                                @foreach ($data as $dt)
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td><img src="{{ asset('foto_produk/'.$dt->foto_produk) }}" alt="" style="max-width: 150px"></td>
@@ -100,8 +100,17 @@
     <!-- BEGIN: Page JS-->
     <script src="../../../app-assets/js/scripts/pages/app-invoice-list.js"></script>
     <!-- END: Page JS-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <script>
-        new DataTable('#myTable');
+        var table =  new DataTable('#myTable');
+        var search = $('#dt-search-0')
+        search.keyup(function() { 
+        var exportButton = $('#exportPDF')
+        var href = exportButton.attr('href');
+        var final  = 'http://127.0.0.1:8000/export_excel?search=' +search.val()
+        document.getElementById("exportPDF").href=final; 
+        });
+        
     </script>
 @endsection

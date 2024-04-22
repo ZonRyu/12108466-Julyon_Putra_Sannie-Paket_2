@@ -15,7 +15,7 @@ class ProdukController extends Controller
     public function index()
     {
         $data = Produk::all();
-        return view('produk.produk-list', compact('data'));
+        return view('produk.produk-list2', compact('data'));
     }
 
     // Halaman Produk edit
@@ -42,20 +42,20 @@ class ProdukController extends Controller
             'foto_produk' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        if (Produk::where('nama_produk', $request->nama_produk)->exists()){
+        if (Produk::where('nama_produk', $request->nama_produk)->exists()) {
             Alert::error('Error', 'Produk sudah ada');
             return redirect()->route('produk-list');
-        }else{
+        } else {
             $foto = $request->foto_produk->getClientOriginalName();
             $request->foto_produk->move(public_path('foto_produk'), $foto);
-    
+
             $data = Produk::create([
                 'nama_produk' => $request->nama_produk,
                 'harga_produk' => $request->harga_produk,
                 'stok_produk' => $request->stok_produk,
                 'foto_produk' => $foto,
             ]);
-    
+
             Alert::success('Success', 'Data berhasil ditambahkan');
             return redirect()->route('produk-list');
         }
@@ -64,7 +64,14 @@ class ProdukController extends Controller
     // Export data ke excel
     public function export_excel()
     {
-        return Excel::download(new ProdukExport, 'siswa.xlsx');
+        if (isset($_GET['search'])) {
+            $search = $_GET['search'];
+            $produk = Produk::where('nama_produk', 'LIKE', "%{$search}%")->get();
+        } else {
+            $produk = Produk::all();
+        }
+
+        return Excel::download(new ProdukExport($produk), 'product.xlsx');
     }
 
     /**
@@ -98,13 +105,13 @@ class ProdukController extends Controller
             'stok_produk' => $request->stok_produk,
         ]);
 
-        if($request->foto_produk != ''){
-            $path = public_path().'/foto_produk/';
+        if ($request->foto_produk != '') {
+            $path = public_path() . '/foto_produk/';
 
             //code for remove old file
-            if($data->foto_produk != ''  && $data->foto_produk != null){
-                 $file_old = $path.$data->foto_produk;
-                 unlink($file_old);
+            if ($data->foto_produk != ''  && $data->foto_produk != null) {
+                $file_old = $path . $data->foto_produk;
+                unlink($file_old);
             }
 
             //upload new file
@@ -114,7 +121,7 @@ class ProdukController extends Controller
 
             //for update in table
             $data->update(['foto_produk' => $filename]);
-       }
+        }
 
         Alert::success('Success', 'Data berhasil diubah');
         return redirect()->route('produk-list');
